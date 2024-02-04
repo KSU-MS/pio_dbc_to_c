@@ -90,12 +90,10 @@ else:
 
 client = docker.from_env()
 
-
+commands = ["rm /out","mkdir out","./dbcc -o /out " + "/data/" + dbc_file_name]
 client.containers.run(
     "ghcr.io/mathbrook/ccoderdbc:main",
-    "./dbcc -o /out "
-    + "/data/"
-    + dbc_file_name,
+    commands,
     group_add=["1000"],
     user=1000,
     volumes=[abs_path_to_dbc + ":/data", generated_src_dir + ":/out"],
